@@ -3,13 +3,9 @@ import { youtube, youtube_v3 } from "@googleapis/youtube";
 
 const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
 
-type Data = {
-  name: string;
-};
-
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<youtube_v3.Schema$VideoListResponse>
 ) {
   const youtubeApi = youtube({
     version: "v3",
@@ -28,5 +24,5 @@ export default async function handler(
 
   const data = await youtubeApi.videos.list(params);
   console.log(data);
-  res.status(200).json({ name: data.data!.kind! });
+  res.status(200).json(data.data);
 }
