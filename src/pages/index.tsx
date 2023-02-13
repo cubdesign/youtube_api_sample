@@ -4,6 +4,12 @@ import { Options } from "youtube-player/dist/types";
 import styles from "@/styles/Home.module.css";
 
 export default function Home() {
+  const videoId: string = "Z2Z9V-4DMGw";
+  const opts: Options = {
+    playerVars: {
+      rel: 0,
+    },
+  };
   return (
     <>
       <Head>
@@ -14,7 +20,11 @@ export default function Home() {
       </Head>
       <main>
         <h1>Youtube</h1>
-        <YouTube videoId="Z2Z9V-4DMGw" className={styles.youtubeContainer} />
+        <YouTube
+          videoId={videoId}
+          opts={opts}
+          className={styles.youtubeContainer}
+        />
       </main>
     </>
   );
