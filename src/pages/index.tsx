@@ -2,6 +2,7 @@ import Head from "next/head";
 import YouTube from "react-youtube";
 import { Options } from "youtube-player/dist/types";
 import styles from "@/styles/Home.module.css";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const videoId: string = "Z2Z9V-4DMGw";
@@ -10,6 +11,18 @@ export default function Home() {
       rel: 0,
     },
   };
+
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    const f = async () => {
+      const data = await fetch("/api/youtube/videos", {});
+      const json = await data.json();
+      console.log(json);
+      setData(json);
+    };
+    f();
+  }, []);
+
   return (
     <>
       <Head>
