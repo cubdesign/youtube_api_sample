@@ -11,14 +11,15 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   const url = "https://www.googleapis.com/youtube/v3/videos";
-  const videoId: string = "Z2Z9V-4DMGw";
   const part: string = "snippet";
   const regionCode = "jp";
+  const videoId: string = "Z2Z9V-4DMGw";
+
   const params = {
-    id: videoId,
     key: YOUTUBE_API_KEY!,
     part: part,
     regionCode: regionCode,
+    id: videoId,
   };
   const query = new URLSearchParams(params);
 
