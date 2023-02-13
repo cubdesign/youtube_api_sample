@@ -1,4 +1,7 @@
 import Head from "next/head";
+import YouTube from "react-youtube";
+import { Options } from "youtube-player/dist/types";
+import styles from "@/styles/Home.module.css";
 
 export default function Home() {
   return (
@@ -9,7 +12,10 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>youtube</main>
+      <main>
+        <h1>Youtube</h1>
+        <YouTube videoId="Z2Z9V-4DMGw" className={styles.youtubeContainer} />
+      </main>
     </>
   );
 }
