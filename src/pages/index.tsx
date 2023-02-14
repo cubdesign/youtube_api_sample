@@ -2,7 +2,13 @@ import Head from "next/head";
 import YouTube from "react-youtube";
 import { Options } from "youtube-player/dist/types";
 import styles from "@/styles/Home.module.css";
-import { useEffect, useState } from "react";
+import { ReactElement, ReactNode, useEffect, useState } from "react";
+import { youtube_v3 } from "@googleapis/youtube";
+import Linkify from "linkify-react";
+import "linkify-plugin-hashtag";
+import "linkify-plugin-mention";
+import Link from "next/link";
+import { IntermediateRepresentation } from "linkifyjs";
 
 export default function Home() {
   const videoId: string = "Z2Z9V-4DMGw";
@@ -12,17 +18,62 @@ export default function Home() {
     },
   };
 
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<youtube_v3.Schema$Video>();
+
   useEffect(() => {
     const f = async () => {
-      const data = await fetch("/api/youtube/videos", {});
-      const json = await data.json();
-      console.log(json);
-      setData(json);
+      const data = await fetch("/api/youtube/videos");
+      const json = (await data.json()) as youtube_v3.Schema$VideoListResponse;
+      const one = json.items![0];
+      setData(one);
     };
     f();
   }, []);
 
+  const renderLink = ({ attributes, content }: IntermediateRepresentation) => {
+    const { href, ...props } = attributes;
+
+    return (
+      <Link href={href} {...props}>
+        {content}
+      </Link>
+    );
+  };
+
+  const descriptionTag = (() => {
+    const description = data?.snippet?.description;
+
+    if (!description) {
+      return null;
+    }
+
+    const lines = description.split("\n\n");
+    const tag = lines.map((line, index) => {
+      let sentences = line.split("\n");
+      return (
+        <p key={index}>
+          {sentences.reduce<ReactNode[]>((prev, curr, index2) => {
+            if (index2 === 0) {
+              return [...prev, curr];
+            }
+            return [...prev, <br key={index2} />, curr];
+          }, [])}
+        </p>
+      );
+    });
+
+    const options = {
+      render: {
+        url: renderLink,
+        hashtag: renderLink,
+        mention: renderLink,
+      },
+    };
+
+    return <Linkify options={options}>{tag}</Linkify>;
+  })();
+
+  console.log(descriptionTag);
   return (
     <>
       <Head>
@@ -33,11 +84,20 @@ export default function Home() {
       </Head>
       <main>
         <h1>Youtube</h1>
+
+        {data && (
+          <div>
+            <p>{data.id}</p>
+            <p>{data.snippet?.title}</p>
+          </div>
+        )}
+
         <YouTube
           videoId={videoId}
           opts={opts}
           className={styles.youtubeContainer}
         />
+        {data && <div>{descriptionTag}</div>}
       </main>
     </>
   );

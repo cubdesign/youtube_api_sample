@@ -1544,6 +1544,26 @@ levn@^0.4.1:
     prelude-ls "^1.2.1"
     type-check "~0.4.0"
 
+linkify-plugin-hashtag@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/linkify-plugin-hashtag/-/linkify-plugin-hashtag-4.1.0.tgz#59fec31bd0454eef586c8d434fe501cc5faf80cb"
+  integrity sha512-Wq1EpCq9AcwHzdNR08ywu/jx0EjEA4OF2EzqA/n/Nx5VmGE2TeE8rOi1A/WDnPyo2WFdxRjj/86+2RDoYnG0Xw==
+
+linkify-plugin-mention@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/linkify-plugin-mention/-/linkify-plugin-mention-4.1.0.tgz#863e3b4cf58e348f403d68aef45771229ac4c7d8"
+  integrity sha512-DsPd5gQp1QkTTcv54xw2wK1qxgkyy+rNBUK4n5t3npQvIFoP71fmAuIfwOg/Jx3nNSCCbse040WpSLMUG8s+yA==
+
+linkify-react@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/linkify-react/-/linkify-react-4.1.0.tgz#8b2796a8bc7a847ae1486b86392c0ad833d0f314"
+  integrity sha512-PG+ulIQkrHHDluuH/YgvRZDX1GFi0sarb7jNL4BdFOBH+muoiIVvBVwHkP9K7lSn7OmC6k8JEXKe+QvwBUsuOg==
+
+linkifyjs@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/linkifyjs/-/linkifyjs-4.1.0.tgz#0460bfcc37d3348fa80e078d92e7bbc82588db15"
+  integrity sha512-Ffv8VoY3+ixI1b3aZ3O+jM6x17cOsgwfB1Wq7pkytbo1WlyRp6ZO0YDMqiWT/gQPY/CmtiGuKfzDIVqxh1aCTA==
+
 load-script@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/load-script/-/load-script-1.0.0.tgz#0491939e0bee5643ee494a7e3da3d2bac70c6ca4"
