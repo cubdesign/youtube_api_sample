@@ -11,13 +11,13 @@ export default async function handler(
     version: "v3",
   });
 
-  const part: string = "snippet";
+  const part: string[] = ["snippet", "statistics"];
   const regionCode = "jp";
   const videoId: string = "Z2Z9V-4DMGw";
 
   const params: youtube_v3.Params$Resource$Videos$List = {
     key: YOUTUBE_API_KEY!,
-    part: [part],
+    part: part,
     regionCode: regionCode,
     id: [videoId],
   };

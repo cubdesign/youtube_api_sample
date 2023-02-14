@@ -73,7 +73,6 @@ export default function Home() {
     return <Linkify options={options}>{tag}</Linkify>;
   })();
 
-  console.log(descriptionTag);
   return (
     <>
       <Head>
@@ -89,6 +88,12 @@ export default function Home() {
           <div>
             <p>{data.id}</p>
             <p>{data.snippet?.title}</p>
+            <div className={styles.statistics}>
+              <p> view : {data.statistics?.viewCount} </p>
+              <p> like : {data.statistics?.likeCount} </p>
+              <p> comment : {data.statistics?.commentCount} </p>
+              <p> favorite : {data.statistics?.favoriteCount} </p>
+            </div>
           </div>
         )}
 
