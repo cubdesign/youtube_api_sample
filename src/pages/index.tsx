@@ -10,6 +10,7 @@ import "linkify-plugin-mention";
 import Link from "next/link";
 import { IntermediateRepresentation } from "linkifyjs";
 import { getFormattedDateTime } from "@/utils/date-utils";
+import Image from "next/image";
 
 export default function Home() {
   const videoId: string = "Z2Z9V-4DMGw";
@@ -56,9 +57,18 @@ export default function Home() {
           <>
             <h2>検索結果</h2>
             {data.map((item) => (
-              <div key={item.id?.videoId}>
-                <p>{item.id?.videoId}</p>
-                <p>{item.snippet?.title}</p>
+              <div key={item.id?.videoId} className={styles.row}>
+                {/* eslint-disable @next/next/no-img-element */}
+                <img
+                  className={styles.thumbnail}
+                  src={item.snippet?.thumbnails?.high?.url!}
+                  alt={item.snippet?.title!}
+                />
+                {/* eslint-enable @next/next/no-img-element */}
+                <div className={styles.contents}>
+                  <p>{item.id?.videoId}</p>
+                  <p>{item.snippet?.title}</p>
+                </div>
               </div>
             ))}
           </>
