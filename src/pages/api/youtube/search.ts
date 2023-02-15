@@ -14,12 +14,14 @@ export default async function handler(
   const part: string[] = ["snippet"];
   const regionCode = "jp";
   const q: string = "Aimer";
+  const maxResults: number = 10;
 
   const params: youtube_v3.Params$Resource$Search$List = {
     key: YOUTUBE_API_KEY!,
     part: part,
     regionCode: regionCode,
     q: q,
+    maxResults: maxResults,
   };
 
   const data = await youtubeApi.search.list(params);
