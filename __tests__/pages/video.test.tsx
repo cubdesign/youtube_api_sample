@@ -1,19 +1,19 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import Home from "@/pages/index";
+import Video from "@/pages/video";
 
-describe("Home", () => {
+describe("Video", () => {
   it("renders a heading", async () => {
-    render(<Home />);
+    render(<Video />);
 
     const heading = screen.getByRole("heading", {
-      name: /Youtube/i,
+      name: /Video/i,
     });
 
     expect(heading).toBeInTheDocument();
 
-    await waitFor(() => screen.findByText(/検索結果/i));
+    await waitFor(() => screen.findByText(/comment/i));
 
-    const name = screen.getByText(/Official/i);
+    const name = screen.getByText(/Z2Z9V-4DMGw/i);
     expect(name).toBeInTheDocument();
   });
 });

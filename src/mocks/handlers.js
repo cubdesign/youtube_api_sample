@@ -1,5 +1,192 @@
 import { rest } from "msw";
 export const handlers = [
+  rest.get("/api/youtube/search", (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        kind: "youtube#searchListResponse",
+        etag: "TmlpNVs9e1bu6FoEhN1DJIx8xtQ",
+        nextPageToken: "CAUQAA",
+        regionCode: "JP",
+        pageInfo: {
+          totalResults: 1000000,
+          resultsPerPage: 5,
+        },
+        items: [
+          {
+            kind: "youtube#searchResult",
+            etag: "-SnOD--Pw2HoMpOnFdpnbS41W50",
+            id: {
+              kind: "youtube#channel",
+              channelId: "UCR1zT1s524Hbc85bdvno_8w",
+            },
+            snippet: {
+              publishedAt: "2013-02-07T11:35:47Z",
+              channelId: "UCR1zT1s524Hbc85bdvno_8w",
+              title: "Aimer Official YouTube Channel",
+              description:
+                'Aimer Official YouTube Channel シンガーソングライター"Aimer（エメ）"によるOfficial YouTube Channelです。 不定期でライブ ...',
+              thumbnails: {
+                default: {
+                  url: "https://yt3.ggpht.com/s3Lc_XpAJx57vebdioVvOv31Q3pszOb88AkEjsBI5RFA3q99WVEJTmUTOYsureMzTJpbrIL-_w=s88-c-k-c0xffffffff-no-rj-mo",
+                },
+                medium: {
+                  url: "https://yt3.ggpht.com/s3Lc_XpAJx57vebdioVvOv31Q3pszOb88AkEjsBI5RFA3q99WVEJTmUTOYsureMzTJpbrIL-_w=s240-c-k-c0xffffffff-no-rj-mo",
+                },
+                high: {
+                  url: "https://yt3.ggpht.com/s3Lc_XpAJx57vebdioVvOv31Q3pszOb88AkEjsBI5RFA3q99WVEJTmUTOYsureMzTJpbrIL-_w=s800-c-k-c0xffffffff-no-rj-mo",
+                },
+              },
+              channelTitle: "Aimer Official YouTube Channel",
+              liveBroadcastContent: "none",
+              publishTime: "2013-02-07T11:35:47Z",
+            },
+          },
+          {
+            kind: "youtube#searchResult",
+            etag: "8wOTvCKPC4bl1FAKm9FHeysVUGQ",
+            id: {
+              kind: "youtube#video",
+              videoId: "Opp9nqiN5m0",
+            },
+            snippet: {
+              publishedAt: "2022-01-28T13:00:11Z",
+              channelId: "UC9zY_E8mcAo_Oq772LEZq8Q",
+              title: "Aimer - カタオモイ / THE FIRST TAKE",
+              description:
+                "「THE FIRST TAKE」は、一発撮りのパフォーマンスを鮮明に切り取るYouTubeチャンネル。 ONE TAKE ONLY, ONE LIFE ONLY.",
+              thumbnails: {
+                default: {
+                  url: "https://i.ytimg.com/vi/Opp9nqiN5m0/default.jpg",
+                  width: 120,
+                  height: 90,
+                },
+                medium: {
+                  url: "https://i.ytimg.com/vi/Opp9nqiN5m0/mqdefault.jpg",
+                  width: 320,
+                  height: 180,
+                },
+                high: {
+                  url: "https://i.ytimg.com/vi/Opp9nqiN5m0/hqdefault.jpg",
+                  width: 480,
+                  height: 360,
+                },
+              },
+              channelTitle: "THE FIRST TAKE",
+              liveBroadcastContent: "none",
+              publishTime: "2022-01-28T13:00:11Z",
+            },
+          },
+          {
+            kind: "youtube#searchResult",
+            etag: "j6PAo8IYj0PAbNxWk3VMzMdTCDY",
+            id: {
+              kind: "youtube#video",
+              videoId: "tLQLa6lM3Us",
+            },
+            snippet: {
+              publishedAt: "2021-12-12T15:00:11Z",
+              channelId: "UCR1zT1s524Hbc85bdvno_8w",
+              title:
+                "Aimer「残響散歌」MUSIC VIDEO（テレビアニメ「鬼滅の刃」遊郭編オープニングテーマ）",
+              description:
+                "テレビアニメ「鬼滅の刃」遊郭編OPテーマ&EDテーマAimer 『残響散歌/朝が来る』now on sale!",
+              thumbnails: {
+                default: {
+                  url: "https://i.ytimg.com/vi/tLQLa6lM3Us/default.jpg",
+                  width: 120,
+                  height: 90,
+                },
+                medium: {
+                  url: "https://i.ytimg.com/vi/tLQLa6lM3Us/mqdefault.jpg",
+                  width: 320,
+                  height: 180,
+                },
+                high: {
+                  url: "https://i.ytimg.com/vi/tLQLa6lM3Us/hqdefault.jpg",
+                  width: 480,
+                  height: 360,
+                },
+              },
+              channelTitle: "Aimer Official YouTube Channel",
+              liveBroadcastContent: "none",
+              publishTime: "2021-12-12T15:00:11Z",
+            },
+          },
+          {
+            kind: "youtube#searchResult",
+            etag: "xSpABuqYNL2ugSXV8rSX0rW9wFM",
+            id: {
+              kind: "youtube#video",
+              videoId: "bnzPJhW9XQg",
+            },
+            snippet: {
+              publishedAt: "2022-02-09T13:00:12Z",
+              channelId: "UC9zY_E8mcAo_Oq772LEZq8Q",
+              title: "Aimer - 残響散歌 / THE FIRST TAKE",
+              description:
+                "「THE FIRST TAKE」は、一発撮りのパフォーマンスを鮮明に切り取るYouTubeチャンネル。 ONE TAKE ONLY, ONE LIFE ONLY.",
+              thumbnails: {
+                default: {
+                  url: "https://i.ytimg.com/vi/bnzPJhW9XQg/default.jpg",
+                  width: 120,
+                  height: 90,
+                },
+                medium: {
+                  url: "https://i.ytimg.com/vi/bnzPJhW9XQg/mqdefault.jpg",
+                  width: 320,
+                  height: 180,
+                },
+                high: {
+                  url: "https://i.ytimg.com/vi/bnzPJhW9XQg/hqdefault.jpg",
+                  width: 480,
+                  height: 360,
+                },
+              },
+              channelTitle: "THE FIRST TAKE",
+              liveBroadcastContent: "none",
+              publishTime: "2022-02-09T13:00:12Z",
+            },
+          },
+          {
+            kind: "youtube#searchResult",
+            etag: "5tjjNTqxGW7T_loHqMRvOUL_O6g",
+            id: {
+              kind: "youtube#video",
+              videoId: "kxs9Su_mbpU",
+            },
+            snippet: {
+              publishedAt: "2020-04-09T03:00:12Z",
+              channelId: "UCR1zT1s524Hbc85bdvno_8w",
+              title: "Aimer 『カタオモイ』MUSIC VIDEO（FULL ver.）",
+              description:
+                "Aimer Official YouTube Channel 100万人突破と、新曲「春はゆく」オリコン週間デジタルシングル1位を記念して、MUSIC ...",
+              thumbnails: {
+                default: {
+                  url: "https://i.ytimg.com/vi/kxs9Su_mbpU/default.jpg",
+                  width: 120,
+                  height: 90,
+                },
+                medium: {
+                  url: "https://i.ytimg.com/vi/kxs9Su_mbpU/mqdefault.jpg",
+                  width: 320,
+                  height: 180,
+                },
+                high: {
+                  url: "https://i.ytimg.com/vi/kxs9Su_mbpU/hqdefault.jpg",
+                  width: 480,
+                  height: 360,
+                },
+              },
+              channelTitle: "Aimer Official YouTube Channel",
+              liveBroadcastContent: "none",
+              publishTime: "2020-04-09T03:00:12Z",
+            },
+          },
+        ],
+      })
+    );
+  }),
   rest.get("/api/youtube/videos", (req, res, ctx) => {
     return res(
       ctx.status(200),
