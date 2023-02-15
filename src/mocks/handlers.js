@@ -187,7 +187,7 @@ export const handlers = [
       })
     );
   }),
-  rest.get("/api/youtube/videos", (req, res, ctx) => {
+  rest.get("/api/youtube/videos/*", (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json({

@@ -38,6 +38,14 @@ export default function Home() {
     };
     f();
   }, []);
+
+  const onClickHandler = (
+    e: React.MouseEvent<HTMLDivElement>,
+    videoId: string
+  ) => {
+    console.log(videoId);
+  };
+
   return (
     <>
       <Head>
@@ -57,7 +65,11 @@ export default function Home() {
             </p>
             <div>
               {data.map((item) => (
-                <div key={String(item.id!.videoId!)} className={styles.row}>
+                <div
+                  key={String(item.id!.videoId!)}
+                  className={styles.row}
+                  onClick={(e) => onClickHandler(e, item.id!.videoId!)}
+                >
                   {/* eslint-disable @next/next/no-img-element */}
                   <img
                     className={styles.thumbnail}

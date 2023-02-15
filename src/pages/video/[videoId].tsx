@@ -14,7 +14,7 @@ import { useRouter } from "next/router";
 
 const Video = () => {
   const router = useRouter();
-  let videoId = router.query.videoId as string | undefined;
+  let videoId = router.query.videoId ? router.query.videoId.toString() : null;
 
   const opts: Options = {
     playerVars: {
@@ -26,13 +26,15 @@ const Video = () => {
 
   useEffect(() => {
     const f = async () => {
-      const data = await fetch("/api/youtube/videos");
+      const data = await fetch(`/api/youtube/videos/${videoId}`);
       const json = (await data.json()) as youtube_v3.Schema$VideoListResponse;
       const one = json.items![0];
       setData(one);
     };
-    f();
-  }, []);
+    if (videoId) {
+      f();
+    }
+  }, [videoId]);
 
   const renderLink = ({ attributes, content }: IntermediateRepresentation) => {
     const { href, ...props } = attributes;
@@ -106,7 +108,7 @@ const Video = () => {
             </div>
 
             <YouTube
-              videoId={videoId!}
+              videoId={videoId}
               opts={opts}
               className={styles.youtubeContainer}
             />
