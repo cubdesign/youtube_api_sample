@@ -9,6 +9,7 @@ import "linkify-plugin-hashtag";
 import "linkify-plugin-mention";
 import Link from "next/link";
 import { IntermediateRepresentation } from "linkifyjs";
+import { getFormattedDateTime } from "@/utils/date-utils";
 
 export default function Home() {
   const videoId: string = "Z2Z9V-4DMGw";
@@ -73,6 +74,11 @@ export default function Home() {
     return <Linkify options={options}>{tag}</Linkify>;
   })();
 
+  const publishedAt = data?.snippet?.publishedAt;
+  const publishedAtDate = publishedAt
+    ? getFormattedDateTime(new Date(publishedAt))
+    : null;
+
   return (
     <>
       <Head>
@@ -87,6 +93,7 @@ export default function Home() {
         {data && (
           <div>
             <p>{data.id}</p>
+            <p>{publishedAtDate}</p>
             <p>{data.snippet?.title}</p>
             <div className={styles.statistics}>
               <p> view : {data.statistics?.viewCount} </p>
