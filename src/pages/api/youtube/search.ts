@@ -20,6 +20,8 @@ export default async function handler(
     key: YOUTUBE_API_KEY!,
     part: part,
     regionCode: regionCode,
+    type: ["video"],
+    videoEmbeddable: "true",
     q: q,
     maxResults: maxResults,
   };
