@@ -13,7 +13,6 @@ import { getFormattedDateTime } from "@/utils/date-utils";
 import Image from "next/image";
 
 export default function Home() {
-  const videoId: string = "Z2Z9V-4DMGw";
   const opts: Options = {
     playerVars: {
       rel: 0,
@@ -21,27 +20,24 @@ export default function Home() {
   };
 
   const [data, setData] = useState<youtube_v3.Schema$SearchResult[]>([]);
+  const [pageInfo, setPageInfo] = useState<youtube_v3.Schema$PageInfo | null>(
+    null
+  );
+  const [nextPageToken, setNextPageToken] = useState<string>("");
 
   useEffect(() => {
     const f = async () => {
       const data = await fetch("/api/youtube/search");
       const json = (await data.json()) as youtube_v3.Schema$SearchListResponse;
       const list = json.items!;
+      const pageInfo = json.pageInfo!;
+      const nextPageToken = json.nextPageToken!;
+      setPageInfo(pageInfo);
       setData(list);
+      setNextPageToken(nextPageToken);
     };
     f();
   }, []);
-
-  const renderLink = ({ attributes, content }: IntermediateRepresentation) => {
-    const { href, ...props } = attributes;
-
-    return (
-      <Link href={href} {...props}>
-        {content}
-      </Link>
-    );
-  };
-
   return (
     <>
       <Head>
@@ -54,24 +50,30 @@ export default function Home() {
         <h1>Youtube</h1>
 
         {data.length > 0 && (
-          <>
+          <div>
             <h2>検索結果</h2>
-            {data.map((item) => (
-              <div key={item.id?.videoId} className={styles.row}>
-                {/* eslint-disable @next/next/no-img-element */}
-                <img
-                  className={styles.thumbnail}
-                  src={item.snippet?.thumbnails?.high?.url!}
-                  alt={item.snippet?.title!}
-                />
-                {/* eslint-enable @next/next/no-img-element */}
-                <div className={styles.contents}>
-                  <p>{item.id?.videoId}</p>
-                  <p>{item.snippet?.title}</p>
+            <p>
+              {pageInfo!.resultsPerPage} / {pageInfo!.totalResults}
+            </p>
+            <div>
+              {data.map((item) => (
+                <div key={String(item.id!.videoId!)} className={styles.row}>
+                  {/* eslint-disable @next/next/no-img-element */}
+                  <img
+                    className={styles.thumbnail}
+                    src={item.snippet?.thumbnails?.high?.url!}
+                    alt={item.snippet?.title!}
+                  />
+                  {/* eslint-enable @next/next/no-img-element */}
+                  <div className={styles.contents}>
+                    <p>{item.id?.videoId}</p>
+                    <p>{item.snippet?.title}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </>
+              ))}
+            </div>
+            <button>Next Page</button>
+          </div>
         )}
       </main>
     </>

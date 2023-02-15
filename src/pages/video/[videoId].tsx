@@ -2,7 +2,7 @@ import Head from "next/head";
 import YouTube from "react-youtube";
 import { Options } from "youtube-player/dist/types";
 import styles from "@/styles/video.module.css";
-import { ReactElement, ReactNode, useEffect, useState } from "react";
+import { ReactElement, ReactNode, useEffect, useState, FC } from "react";
 import { youtube_v3 } from "@googleapis/youtube";
 import Linkify from "linkify-react";
 import "linkify-plugin-hashtag";
@@ -10,9 +10,12 @@ import "linkify-plugin-mention";
 import Link from "next/link";
 import { IntermediateRepresentation } from "linkifyjs";
 import { getFormattedDateTime } from "@/utils/date-utils";
+import { useRouter } from "next/router";
 
-export default function Video() {
-  const videoId: string = "Z2Z9V-4DMGw";
+const Video = () => {
+  const router = useRouter();
+  let videoId = router.query.videoId as string | undefined;
+
   const opts: Options = {
     playerVars: {
       rel: 0,
@@ -90,7 +93,7 @@ export default function Video() {
       <main>
         <h1>Video</h1>
 
-        {data && (
+        {videoId && data && (
           <div>
             <p>{data.id}</p>
             <p>{publishedAtDate}</p>
@@ -101,16 +104,18 @@ export default function Video() {
               <p> comment : {data.statistics?.commentCount} </p>
               <p> favorite : {data.statistics?.favoriteCount} </p>
             </div>
+
+            <YouTube
+              videoId={videoId!}
+              opts={opts}
+              className={styles.youtubeContainer}
+            />
+
+            <div>{descriptionTag}</div>
           </div>
         )}
-
-        <YouTube
-          videoId={videoId}
-          opts={opts}
-          className={styles.youtubeContainer}
-        />
-        {data && <div>{descriptionTag}</div>}
       </main>
     </>
   );
-}
+};
+export default Video;

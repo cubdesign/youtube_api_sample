@@ -14,7 +14,7 @@ export default async function handler(
   const part: string[] = ["snippet"];
   const regionCode = "jp";
   const q: string = "Aimer";
-  const maxResults: number = 10;
+  const maxResults: number = 5;
 
   const params: youtube_v3.Params$Resource$Search$List = {
     key: YOUTUBE_API_KEY!,
