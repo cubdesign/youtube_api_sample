@@ -11,6 +11,8 @@ import Link from "next/link";
 import { IntermediateRepresentation } from "linkifyjs";
 import { getFormattedDateTime } from "@/utils/date-utils";
 import { useRouter } from "next/router";
+import { ApiVideosResponse, videos } from "@/services/youtubeAPI";
+import { useQuery } from "react-query";
 
 const Video = () => {
   const router = useRouter();
@@ -24,17 +26,17 @@ const Video = () => {
 
   const [data, setData] = useState<youtube_v3.Schema$Video>();
 
-  useEffect(() => {
-    const f = async () => {
-      const data = await fetch(`/api/youtube/videos/${videoId}`);
-      const json = (await data.json()) as youtube_v3.Schema$VideoListResponse;
+  const { isLoading, error, isSuccess, isError, refetch } = useQuery<
+    ApiVideosResponse,
+    Error
+  >({
+    queryKey: [`videos`, videoId],
+    queryFn: () => videos(videoId!),
+    onSuccess: (json) => {
       const one = json.items![0];
       setData(one);
-    };
-    if (videoId) {
-      f();
-    }
-  }, [videoId]);
+    },
+  });
 
   const renderLink = ({ attributes, content }: IntermediateRepresentation) => {
     const { href, ...props } = attributes;

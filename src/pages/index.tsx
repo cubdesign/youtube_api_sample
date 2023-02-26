@@ -5,6 +5,8 @@ import { ReactNode, useEffect, useState } from "react";
 import { youtube_v3 } from "@googleapis/youtube";
 import Link from "next/link";
 import SearchForm from "@/components/ui/SearchFrom";
+import { useQuery } from "react-query";
+import { ApiSearchResponse, search } from "@/services/youtubeAPI";
 
 export default function Home() {
   const opts: Options = {
@@ -21,28 +23,26 @@ export default function Home() {
 
   const [searchText, setSearchText] = useState<string>("Aimer");
 
-  const search = async (text: string) => {
-    const params = new URLSearchParams();
-    params.append("q", searchText);
-
-    const data = await fetch(`/api/youtube/search?${params.toString()}`);
-    const json = (await data.json()) as youtube_v3.Schema$SearchListResponse;
-    const list = json.items!;
-    const pageInfo = json.pageInfo!;
-    const nextPageToken = json.nextPageToken!;
-    setPageInfo(pageInfo);
-    setData(list);
-    setNextPageToken(nextPageToken);
-  };
+  const { isLoading, error, isSuccess, isError, refetch } = useQuery<
+    ApiSearchResponse,
+    Error
+  >({
+    queryKey: [`search`, searchText],
+    queryFn: () => search(searchText),
+    onSuccess: (json) => {
+      const list = json.items!;
+      const pageInfo = json.pageInfo!;
+      const nextPageToken = json.nextPageToken!;
+      setPageInfo(pageInfo);
+      setData(list);
+      setNextPageToken(nextPageToken);
+    },
+  });
 
   const searchHandler = (text: string) => {
     setSearchText(text);
-    search(text);
+    refetch();
   };
-
-  useEffect(() => {
-    search(searchText);
-  }, []);
 
   return (
     <>
