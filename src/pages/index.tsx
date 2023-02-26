@@ -4,6 +4,7 @@ import styles from "@/styles/home.module.css";
 import { ReactNode, useEffect, useState } from "react";
 import { youtube_v3 } from "@googleapis/youtube";
 import Link from "next/link";
+import SearchForm from "@/components/ui/SearchFrom";
 
 export default function Home() {
   const opts: Options = {
@@ -18,18 +19,29 @@ export default function Home() {
   );
   const [nextPageToken, setNextPageToken] = useState<string>("");
 
+  const [searchText, setSearchText] = useState<string>("Aimer");
+
+  const search = async (text: string) => {
+    const params = new URLSearchParams();
+    params.append("q", searchText);
+
+    const data = await fetch(`/api/youtube/search?${params.toString()}`);
+    const json = (await data.json()) as youtube_v3.Schema$SearchListResponse;
+    const list = json.items!;
+    const pageInfo = json.pageInfo!;
+    const nextPageToken = json.nextPageToken!;
+    setPageInfo(pageInfo);
+    setData(list);
+    setNextPageToken(nextPageToken);
+  };
+
+  const searchHandler = (text: string) => {
+    setSearchText(text);
+    search(text);
+  };
+
   useEffect(() => {
-    const f = async () => {
-      const data = await fetch("/api/youtube/search");
-      const json = (await data.json()) as youtube_v3.Schema$SearchListResponse;
-      const list = json.items!;
-      const pageInfo = json.pageInfo!;
-      const nextPageToken = json.nextPageToken!;
-      setPageInfo(pageInfo);
-      setData(list);
-      setNextPageToken(nextPageToken);
-    };
-    f();
+    search(searchText);
   }, []);
 
   return (
@@ -42,10 +54,10 @@ export default function Home() {
       </Head>
       <main>
         <h1>Youtube</h1>
-
+        <SearchForm text={searchText} onChange={searchHandler}></SearchForm>
         {data.length > 0 && (
           <div>
-            <h2>検索結果</h2>
+            <h2>{searchText}の検索結果</h2>
             <p>
               {pageInfo!.resultsPerPage} / {pageInfo!.totalResults}
             </p>
@@ -64,8 +76,11 @@ export default function Home() {
                     />
                     {/* eslint-enable @next/next/no-img-element */}
                     <div className={styles.contents}>
-                      <p>{item.id?.videoId}</p>
-                      <p>{item.snippet?.title}</p>
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: item.snippet?.title!,
+                        }}
+                      />
                     </div>
                   </div>
                 </Link>
