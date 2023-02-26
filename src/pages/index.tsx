@@ -1,16 +1,9 @@
 import Head from "next/head";
-import YouTube from "react-youtube";
 import { Options } from "youtube-player/dist/types";
 import styles from "@/styles/home.module.css";
 import { ReactNode, useEffect, useState } from "react";
 import { youtube_v3 } from "@googleapis/youtube";
-import Linkify from "linkify-react";
-import "linkify-plugin-hashtag";
-import "linkify-plugin-mention";
 import Link from "next/link";
-import { IntermediateRepresentation } from "linkifyjs";
-import { getFormattedDateTime } from "@/utils/date-utils";
-import Image from "next/image";
 
 export default function Home() {
   const opts: Options = {
@@ -39,13 +32,6 @@ export default function Home() {
     f();
   }, []);
 
-  const onClickHandler = (
-    e: React.MouseEvent<HTMLDivElement>,
-    videoId: string
-  ) => {
-    console.log(videoId);
-  };
-
   return (
     <>
       <Head>
@@ -65,23 +51,24 @@ export default function Home() {
             </p>
             <div>
               {data.map((item) => (
-                <div
+                <Link
                   key={String(item.id!.videoId!)}
-                  className={styles.row}
-                  onClick={(e) => onClickHandler(e, item.id!.videoId!)}
+                  href={`/video/${item.id!.videoId!}`}
                 >
-                  {/* eslint-disable @next/next/no-img-element */}
-                  <img
-                    className={styles.thumbnail}
-                    src={item.snippet?.thumbnails?.high?.url!}
-                    alt={item.snippet?.title!}
-                  />
-                  {/* eslint-enable @next/next/no-img-element */}
-                  <div className={styles.contents}>
-                    <p>{item.id?.videoId}</p>
-                    <p>{item.snippet?.title}</p>
+                  <div key={String(item.id!.videoId!)} className={styles.row}>
+                    {/* eslint-disable @next/next/no-img-element */}
+                    <img
+                      className={styles.thumbnail}
+                      src={item.snippet?.thumbnails?.high?.url!}
+                      alt={item.snippet?.title!}
+                    />
+                    {/* eslint-enable @next/next/no-img-element */}
+                    <div className={styles.contents}>
+                      <p>{item.id?.videoId}</p>
+                      <p>{item.snippet?.title}</p>
+                    </div>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
             <button>Next Page</button>
